@@ -20,9 +20,12 @@ func main() {
 	http.HandleFunc("/index", handlerIndex)
 	http.HandleFunc("/hello", handlerHello)
 
-	var address = "localhost:8000"
+	var address = ":8000"
 	fmt.Printf("Server started at %s\n", address)
-	err := http.ListenAndServe(address, nil)
+
+	server := new(http.Server)
+	server.Addr = address
+	err := server.ListenAndServe()
 	if err != nil {
 		fmt.Println(err.Error())
 	}
